@@ -17,7 +17,7 @@
   </head>
   <body>
     <div class="container-fluid mt-5 pt-5">
-      <div class="card mx-auto shadow p-3 mb-5 rounded" style="width: 30vw;">
+      <div class="card mx-auto shadow p-3 mb-5 rounded" style="width: 32vw;">
         <div class="card-body">
           <h5 class="card-title text-warning text-center">
             <i class="far fa-comment-alt text-warning fa-2x"></i> &nbsp;Node SMS
@@ -54,22 +54,38 @@
               <textarea class="form-control" id="inputMsg" rows="3"></textarea>
             </div>
             <br />
-            <button
-              type="submit"
-              class="btn btn-outline-primary "
-              id="send_button"
-            >
-              Send Message &nbsp; <i class="fas fa-arrow-right"></i>
-            </button>
-            <button type="submit" class="btn btn-success d-none" id="res_txt">
-              Sent !
-            </button>
+            <div class="d-flex justify-content-between">
+              <button
+                class="btn btn-outline-primary "
+                id="send_button"
+              >
+                Send SMS &nbsp; <i class="fas fa-arrow-right"></i>
+              </button>
+              <button  class="btn btn-success d-none" id="res_txt">
+                Sent !
+              </button>
+              <button  class="btn btn-danger d-none" id="err_txt">
+                Sent !
+              </button>
+            </div>
+          </br>
+            <div class="d-flex justify-content-between">
+              <button class="btn btn-outline-warning p-0 d-none" id="chargeC">
+                Charge : &nbsp; <i class="fas fa-rupee-sign"></i>
+                <span id="charge"> </span>
+              </button>
+            </br>
+              <button class="btn btn-outline-danger p-0 d-none " id="balanceC">
+                Balance : &nbsp; <i class="fas fa-university"></i>
+                <span id="balance"> </span>
+              </button>
+            </div>
           </form>
         </div>
       </div>
     </div>
   </body>
-  <!-- <script src="socket.io/socket.io.js"></script> -->
+  <script src="socket.io/socket.io.js"></script>
   <script src="js/main.js"></script>
   <script
     src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

@@ -48,6 +48,15 @@ app.post("/", (req, res) => {
         console.log(err);
       } else {
         console.dir(responseData);
+        const data = {
+          id: responseData.messages[0]["message-id"],
+          number: responseData.messages[0]["to"],
+          balance: responseData.messages[0]["remaining-balance"],
+          charge: responseData.messages[0]["message-price"],
+          errortext: responseData.messages[0]["error-text"]
+        };
+
+        io.emit("smsStatus", data);
       }
     }
   );
@@ -60,3 +69,12 @@ const PORT = 3000;
 const Server = app.listen(PORT, () =>
   console.log(`Server Started at PORT ${PORT}`)
 );
+
+//connect ot socket.io
+const io = socketio(Server);
+io.on("connection", socket => {
+  console.log("connected");
+  io.on("disconnected", () => {
+    console.log("Disconnected");
+  });
+});
