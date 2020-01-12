@@ -1,7 +1,89 @@
 <!DOCTYPE html>
 <html>
-  <title>SMS APP | NODEJS |Shubham Sunny</title>
+  <head>
+    <title>NODE SMS APP | NODEJS |Shubham Sunny</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+      integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
+      crossorigin="anonymous"
+    />
+  </head>
   <body>
-    <h1>Node js</h1>
+    <div class="container-fluid mt-5 pt-5">
+      <div class="card mx-auto shadow p-3 mb-5 rounded" style="width: 30vw;">
+        <div class="card-body">
+          <h5 class="card-title text-warning text-center">
+            <i class="far fa-comment-alt text-warning fa-2x"></i> &nbsp;Node SMS
+            App
+          </h5>
+          <br />
+          <form>
+            <div class="form-group">
+              <i class="fas fa-mobile-alt text-info fa-2x"></i>
+              &nbsp;
+              <label for="inputPhone" class="text-info">Phone Number : </label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <span id="country-code" value="+91">+91</span>
+                  </div>
+                </div>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="inputPhone"
+                  aria-describedby="phoneHelp"
+                />
+                <small id="phoneHelp" class="form-text text-muted"
+                  >We'll never share your Phone with anyone else.</small
+                >
+              </div>
+            </div>
+            <br />
+
+            <div class="form-group">
+              <i class="far fa-sticky-note text-success fa-2x "></i>&nbsp;
+              <label for="inputMsg" class="text-success"> Message</label>
+              <textarea class="form-control" id="inputMsg" rows="3"></textarea>
+            </div>
+            <br />
+            <button
+              type="submit"
+              class="btn btn-outline-primary "
+              id="send_button"
+            >
+              Send Message &nbsp; <i class="fas fa-arrow-right"></i>
+            </button>
+            <button type="submit" class="btn btn-success d-none" id="res_txt">
+              Sent !
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
+  <!-- <script src="socket.io/socket.io.js"></script> -->
+  <script src="js/main.js"></script>
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"
+  ></script>
 </html>
