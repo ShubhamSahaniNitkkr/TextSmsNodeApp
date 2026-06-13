@@ -1,6 +1,8 @@
 # SMS Node App
 
 > Send SMS via Twilio API with a simple web form and Socket.io updates.
+<img width="2240" height="1170" alt="image" src="https://github.com/user-attachments/assets/0e98221f-641e-4a5b-982b-c2c74fa29e51" />
+
 
 ## Purpose
 
@@ -56,7 +58,7 @@ Twilio gives a **free trial** with about **$15 credit** — enough for hundreds 
 
 ## Live Demo
 
-[https://shubhamsahaniNitkkr.github.io/TextSmsNodeApp/](https://shubhamsahaniNitkkr.github.io/TextSmsNodeApp/)
+https://textsmsnodeapp.onrender.com
 
 > GitHub Pages hosts a static UI only. Deploy on Render for live SMS.
 
