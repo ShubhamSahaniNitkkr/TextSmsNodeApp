@@ -1,119 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>NODE SMS APP | NODEJS | Shubham Sunny</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
-      integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
-      crossorigin="anonymous"
-    />
-    <style>
-      .sms-card {
-        width: 32vw;
-        min-width: 280px;
-        max-width: 100%;
-      }
-
-      @media (max-width: 768px) {
-        .sms-card {
-          width: 95vw;
-        }
-      }
-    </style>
+    <title>SMS Sender | Node.js + Twilio</title>
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <div class="container-fluid mt-5 pt-5">
-      <div class="card mx-auto shadow p-3 mb-5 rounded sms-card">
+    <main class="page">
+      <section class="card">
+        <header class="card-header">
+          <div class="badge-row">
+            <% if (demoMode) { %>
+            <span class="badge badge-demo">Demo mode</span>
+            <% } else if (readyToSend) { %>
+            <span class="badge badge-live">Live SMS</span>
+            <% } else { %>
+            <span class="badge badge-warn">Not configured</span>
+            <% } %>
+          </div>
+          <h1 class="title">Send SMS</h1>
+          <p class="subtitle">
+            <% if (demoMode) { %>
+            Messages are simulated for demo purposes and will not reach real phones.
+            <% } else if (readyToSend) { %>
+            Powered by Twilio. Free trial can send to verified numbers only.
+            <% } else { %>
+            Add Twilio credentials on the server to enable real SMS delivery.
+            <% } %>
+          </p>
+        </header>
+
         <div class="card-body">
-          <h5 class="card-title text-warning text-center">
-            <i class="far fa-comment-alt text-warning fa-2x"></i> &nbsp;Node SMS
-            App
-          </h5>
-          <br />
-          <form>
-            <div class="form-group">
-              <i class="fas fa-mobile-alt text-info fa-2x"></i>
-              &nbsp;
-              <label for="inputPhone" class="text-info">Phone Number : </label>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <span id="country-code" value="+91">+91</span>
-                  </div>
-                </div>
+          <form id="sms-form" novalidate>
+            <div class="field">
+              <label for="countryCode">Country</label>
+              <div class="phone-row">
+                <select id="countryCode" class="country-select" aria-label="Country code">
+                  <option value="91" selected>+91 IN</option>
+                  <option value="1">+1 US</option>
+                  <option value="44">+44 UK</option>
+                  <option value="61">+61 AU</option>
+                  <option value="971">+971 AE</option>
+                </select>
                 <input
                   type="tel"
-                  class="form-control"
                   id="inputPhone"
-                  aria-describedby="phoneHelp"
+                  placeholder="9876543210"
+                  inputmode="tel"
+                  autocomplete="tel-national"
+                  required
                 />
-                <small id="phoneHelp" class="form-text text-muted"
-                  >We'll never share your Phone with anyone else.</small
-                >
               </div>
+              <p class="hint">Enter the number without the country code.</p>
             </div>
-            <br />
 
-            <div class="form-group">
-              <i class="far fa-sticky-note text-success fa-2x "></i>&nbsp;
-              <label for="inputMsg" class="text-success"> Message</label>
-              <textarea class="form-control" id="inputMsg" rows="3"></textarea>
+            <div class="field">
+              <label for="inputMsg">Message</label>
+              <textarea
+                id="inputMsg"
+                placeholder="Type your SMS here..."
+                maxlength="1600"
+                required
+              ></textarea>
+              <div class="char-count"><span id="charCount">0</span> / 1600</div>
             </div>
-            <br />
-            <div class="d-flex justify-content-between">
-              <button
-                class="btn btn-outline-primary "
-                id="send_button"
-              >
-                Send SMS &nbsp; <i class="fas fa-arrow-right"></i>
+
+            <div class="actions">
+              <button type="submit" class="btn btn-primary" id="send_button">
+                Send SMS
               </button>
-              <button  class="btn btn-success d-none" id="res_txt">
-                Sent !
-              </button>
-              <button  class="btn btn-danger d-none" id="err_txt">
-                Sent !
-              </button>
-            </div>
-          </br>
-            <div class="d-flex justify-content-between">
-              <button class="btn btn-outline-warning p-0 d-none" id="chargeC">
-                Charge : &nbsp; <i class="fas fa-rupee-sign"></i>
-                <span id="charge"> </span>
-              </button>
-            </br>
-              <button class="btn btn-outline-danger p-0 d-none " id="balanceC">
-                Balance : &nbsp; <i class="fas fa-university"></i>
-                <span id="balance"> </span>
+              <button type="button" class="btn btn-secondary hidden" id="reset_button">
+                Send another
               </button>
             </div>
           </form>
+
+          <div id="success_panel" class="status-panel status-success">
+            <p class="status-title" id="success_title">SMS sent successfully</p>
+            <p class="status-meta" id="success_meta"></p>
+            <div class="meta-grid">
+              <div class="meta-item">
+                <span class="meta-label">Charge</span>
+                <span class="meta-value" id="charge">—</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Balance</span>
+                <span class="meta-value" id="balance">—</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="error_panel" class="status-panel status-error">
+            <p class="status-title">Could not send SMS</p>
+            <p class="status-meta" id="error_text"></p>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/main.js"></script>
   </body>
-  <script src="socket.io/socket.io.js"></script>
-  <script src="js/main.js"></script>
-  <script
-    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"
-  ></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"
-  ></script>
-  <script
-    src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"
-  ></script>
 </html>

@@ -1,46 +1,64 @@
 # SMS Node App
 
-> Send SMS via Nexmo/Vonage API with a simple web form and Socket.io updates.
-
-![Screenshot](./screenshot.png)
-> Add `screenshot.png` in project root for preview.
+> Send SMS via Twilio API with a simple web form and Socket.io updates.
 
 ## Purpose
 
-Send SMS via Nexmo/Vonage API with a simple web form and Socket.io updates.
-
-## Use Cases
-
-- SMS API integration
-- Real-time notification demo
-- EJS templating
+Send SMS via Twilio with a simple web form and real-time delivery status.
 
 ## Tech Stack
 
 - Node.js
 - Express
 - EJS
-- Nexmo/Vonage
+- Twilio
 - Socket.io
 
 ## How to Run Locally
 
 ```bash
-npm install && npm run demo
+npm install
+cp .env.example .env   # then set DEMO_MODE=false and Twilio keys
+npm run demo           # simulated SMS (no account needed)
+npm start              # live SMS (requires Twilio env vars below)
 ```
+
+## Free SMS with Twilio (simplest option)
+
+Twilio gives a **free trial** with about **$15 credit** — enough for hundreds of test SMS.
+
+### Setup (5 minutes)
+
+1. Sign up at [twilio.com/try-twilio](https://www.twilio.com/try-twilio) (free).
+2. In the Twilio Console, copy:
+   - **Account SID**
+   - **Auth Token**
+3. Get a **Trial phone number** (Console → Phone Numbers → Manage → Buy a number — free on trial).
+4. **Verify your phone** (Console → Phone Numbers → Verified Caller IDs) — trial accounts can only send to verified numbers.
+
+### Render / environment variables
+
+| Variable | Example | Required |
+|----------|---------|----------|
+| `DEMO_MODE` | `false` | Yes for real SMS |
+| `TWILIO_ACCOUNT_SID` | `ACxxxxxxxx` | Yes |
+| `TWILIO_AUTH_TOKEN` | `your_auth_token` | Yes |
+| `TWILIO_FROM_NUMBER` | `+15017122661` | Yes — your Twilio number |
+
+### Render commands
+
+| Setting | Value |
+|--------|--------|
+| **Build Command** | `npm install` |
+| **Start Command** | `npm start` |
+
+> **Note:** On the free trial, SMS only goes to numbers you verify in Twilio. After upgrading, you can send to any number.
 
 ## Live Demo
 
 [https://shubhamsahaniNitkkr.github.io/TextSmsNodeApp/](https://shubhamsahaniNitkkr.github.io/TextSmsNodeApp/)
 
-
-> **Note:** Demo mode simulates SMS without API credits.
-
-## Performance & UI
-
-- Mobile-responsive layout
-- Optimized static assets where applicable
-- Runs independently from the portfolio hub
+> GitHub Pages hosts a static UI only. Deploy on Render for live SMS.
 
 ---
 
