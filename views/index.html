@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NODE SMS APP | NODEJS |Shubham Sunny</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NODE SMS APP | NODEJS | Shubham Sunny</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -14,10 +15,23 @@
       integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
       crossorigin="anonymous"
     />
+    <style>
+      .sms-card {
+        width: 32vw;
+        min-width: 280px;
+        max-width: 100%;
+      }
+
+      @media (max-width: 768px) {
+        .sms-card {
+          width: 95vw;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="container-fluid mt-5 pt-5">
-      <div class="card mx-auto shadow p-3 mb-5 rounded" style="width: 32vw;">
+      <div class="card mx-auto shadow p-3 mb-5 rounded sms-card">
         <div class="card-body">
           <h5 class="card-title text-warning text-center">
             <i class="far fa-comment-alt text-warning fa-2x"></i> &nbsp;Node SMS

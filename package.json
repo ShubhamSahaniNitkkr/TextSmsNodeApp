@@ -1,14 +1,16 @@
 {
-  "name": "nodeSMSApp",
+  "name": "text-sms-node-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "SMS sending app with Nexmo and Socket.IO",
   "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "engines": {
+    "node": ">=14.0.0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "demo": "DEMO_MODE=true node app.js"
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "ejs": "^3.0.1",
